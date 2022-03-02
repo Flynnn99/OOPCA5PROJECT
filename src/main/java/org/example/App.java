@@ -26,7 +26,7 @@ public class App {
         System.out.println("Select Three to view the country of Origin for our products");
         System.out.println("Two is for bills but only authorised personnel get to view that right...");
 
-        int option = 0;
+        int option;
 
 
         do {
