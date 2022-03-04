@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -16,60 +17,17 @@ public class App {
 
     public void start()
     {
-        System.out.println("Nikes short for Nichael!");
-        System.out.println("Nichaels Pub est 1999");
-        System.out.println("\n");
+        try
+        {
+            displayMenu();        // User Interface - Menu
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
-        Scanner keyboard = new Scanner(System.in);
-
-        System.out.println("Hello and Welcome to Nichaels Pub");
-        System.out.println();
-        System.out.println("Menu Options");
-        System.out.println("1, Select One of you wish to view our products\n");
-        System.out.println("2, Select Two (is for bills but only authorised personnel get to view that right...)\n");
-        System.out.println("3, Select Three to view the country of Origin for our products\n");
-
-        int option;
-
-
-        do {
-
-            System.out.println("Please select what you like");
-            String usersInput = keyboard.nextLine();
-            option = Integer.parseInt(usersInput);
-
-            if (option == 1) {
-                System.out.println("Our Products");
-                ArrayList<Product> pub = new ArrayList();
-                ArrayList<Patron> patron = new ArrayList();
-
-                initializeProductsArrayList(pub);
-                initializePatronsArrayList(patron);
-                displayProductsArrayList(pub);
-
-            } else if (option == 2) {
-                System.out.println("Recent Purchases if you are not authorised please leave");
-
-                Map<String, Product> bill = new HashMap();
-                initializeHashMap(bill);
-
-                System.out.println("please enter your key");
-                String key = keyboard.nextLine();
-
-                Product product = bill.get(key);
-                System.out.println(key + "  Ordered::  " + product);
-
-            } else if (option == 3) {
-                System.out.println("TreeMaps");
-                System.out.println("Drinks country of Origin");
-                Map<String, Product> products = new TreeMap();
-                initializeTreeMap(products);
-            } else {
-                System.out.println("Au Revoir");
-            }
-        }while(option!=4);
-
+        System.out.println("Program ending, Goodbye");
     }
+
 
     //ArrayLists
     public void initializeProductsArrayList(List list)
@@ -119,6 +77,22 @@ public class App {
         {
             System.out.println(items.getProduct_Id() + "\t\t" + items.getName() + "  \t\t" + items.getProduct_Type() + "\t\t\t"
                     + items.getPercentage() + "\t\t  " + items.getPrice() + "\n");
+
+        }
+
+    }
+
+    public void displayPatronsArrayList(List<Patron> pub)
+    {
+        System.out.println("============================================================================");
+        System.out.println("ID " +"\t\t" + "Name" + "\t\t\t" +
+                "Age" + "\t");
+        System.out.println("============================================================================");
+        System.out.println();
+
+        for(Patron items : pub)
+        {
+            System.out.println(items.getPatronId() + "\t\t" + items.getPatronName() + "\t  \t\t" + items.getPatronAge() + "\t\t\t");
 
         }
 
@@ -193,7 +167,218 @@ public class App {
         System.out.println(products);
         System.out.println();
     }
-}
+
+    private void displayMenu() throws IOException
+    {
+        final String MENU_ITEMS = "\n*** MAIN MENU OF OPTIONS ***\n"
+                + "1. The Bar\n"
+                + "2. Receipts\n"
+                + "3. Drinks Country of Origin\n"
+                + "4. Exit\n"
+                + "Enter Option [1,4]";
+
+
+        final int BAR = 1;
+        final int RECEIPTS = 2;
+        final int COI = 3;
+        final int EXIT = 4;
+
+        Scanner keyboard = new Scanner(System.in);
+        int option = 0;
+        do {
+            System.out.println("\n" + MENU_ITEMS);
+            try {
+                String usersInput = keyboard.nextLine();
+                option = Integer.parseInt(usersInput);
+                switch (option)
+                {
+                    case BAR:
+                        System.out.println("Welcome to the Bar");
+                        displayBarMenu();
+
+                    break;
+                    case RECEIPTS:
+                        displayReceiptsMenu();
+                    break;
+                    case COI:
+                        displayCOIMenu();
+
+                        case EXIT:
+                        System.out.println("Exit Menu option chosen");
+                            System.out.println("Thanks for Visiting");
+                        break;
+                    default:
+                        System.out.print("Invalid option - please enter number in range");
+                        break;
+
+                }
+            }catch (InputMismatchException | NumberFormatException e)
+            {
+                System.out.print("Invalid option - please enter number in range");
+            }
+        } while (option != EXIT);
+        }
+
+    private void displayBarMenu()
+    {
+        final String MENU_ITEMS = "\n*** BAR OPTIONS ***\n"
+                + "1. The Drinks\n"
+                + "2. The Patrons\n"
+                + "3. Exit\n"
+                + "Enter Option [1,3]";
+
+        final int DRINKS = 1;
+        final int PATRONS =2;
+        final int EXIT = 3;
+
+        Scanner keyboard = new Scanner(System.in);
+        int option = 0;
+        do {
+            System.out.println("\n" + MENU_ITEMS);
+            try {
+                String usersInput = keyboard.nextLine();
+                option = Integer.parseInt(usersInput);
+
+
+
+                switch (option)
+                {
+                    case DRINKS:
+                        ArrayList<Product> pub = new ArrayList();
+                        initializeProductsArrayList(pub);
+                        displayProductsArrayList(pub);
+
+                        break;
+
+                    case PATRONS:
+                        ArrayList<Patron> patron = new ArrayList();
+                        initializePatronsArrayList(patron);
+                        displayPatronsArrayList(patron);
+                        break;
+                    case EXIT:
+                        System.out.println("Exit Menu option chosen");
+                        break;
+                    default:
+                        System.out.print("Invalid option - please enter number in range");
+                        break;
+
+                }
+                }catch (InputMismatchException | NumberFormatException e)
+                {
+                    System.out.print("Invalid option - please enter number in range");
+                }
+            }while(option !=EXIT);
+            }
+
+    private void displayReceiptsMenu()
+    {
+        final String MENU_ITEMS = "\n*** Receipts ***\n"
+                + "1. View Receipt By Name(KEY)\n"
+                + "2. View ALL\n"
+                + "3. Exit\n"
+                + "Enter Option [1,3]";
+
+        final int KEY = 1;
+        final int ALL =2;
+        final int EXIT = 3;
+
+        Scanner keyboard = new Scanner(System.in);
+        int option = 0;
+        do {
+            System.out.println("\n" + MENU_ITEMS);
+            try {
+                String usersInput = keyboard.nextLine();
+                option = Integer.parseInt(usersInput);
+
+
+
+                switch (option)
+                {
+                    case KEY:
+                        System.out.println("Recent Purchases if you are not authorised please leave");
+
+                        Map<String, Product> bill = new HashMap();
+                        initializeHashMap(bill);
+
+                        System.out.println("please enter your key");
+                        String key = keyboard.nextLine();
+
+                        Product product = bill.get(key);
+                        System.out.println(key + "  Ordered::  " + product);
+
+
+                        break;
+
+                    case ALL:
+                        System.out.println("all bills");
+                        break;
+                    case EXIT:
+                        System.out.println("Exit Menu option chosen");
+                        break;
+                    default:
+                        System.out.print("Invalid option - please enter number in range");
+                        break;
+
+                }
+            }catch (InputMismatchException | NumberFormatException e)
+            {
+                System.out.print("Invalid option - please enter number in range");
+            }
+        }while(option !=EXIT);
+    }
+
+    private void displayCOIMenu()
+    {
+        final String MENU_ITEMS = "\n*** Country of Origin ***\n"
+                + "1. View Country of Origin\n"
+                + "2. Exit\n"
+                + "Enter Option [1,2]";
+
+        final int COI = 1;
+        final int EXIT =2;
+
+
+        Scanner keyboard = new Scanner(System.in);
+        int option = 0;
+        do {
+            System.out.println("\n" + MENU_ITEMS);
+            try {
+                String usersInput = keyboard.nextLine();
+                option = Integer.parseInt(usersInput);
+
+
+
+                switch (option)
+                {
+                    case COI:
+                        System.out.println("Recent Purchases if you are not authorised please leave");
+
+                        System.out.println("TreeMaps");
+                        System.out.println("Drinks country of Origin");
+                        Map<String, Product> products = new TreeMap();
+                        initializeTreeMap(products);
+                        break;
+                    case EXIT:
+                        System.out.println("Exit Menu option chosen");
+                        break;
+                    default:
+                        System.out.print("Invalid option - please enter number in range");
+                        break;
+
+                }
+            }catch (InputMismatchException | NumberFormatException e)
+            {
+                System.out.print("Invalid option - please enter number in range");
+            }
+        }while(option !=EXIT);
+    }
+    }
+
+
+
+
+
+
 
 
 
