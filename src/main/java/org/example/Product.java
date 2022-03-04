@@ -73,16 +73,34 @@ public class Product {
     @Override
     public boolean equals(Object o)
     {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return product_Id == product.product_Id && Double.compare(product.percentage, percentage) == 0 && Double.compare(product.price, price) == 0 && Objects.equals(name, product.name) && Objects.equals(product_Type, product.product_Type);
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        final Product other = (Product) o;
+        if (this.product_Id != other.product_Id)
+        {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
+
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(product_Id, name, product_Type, percentage, price);
+        int hash = 5;
+        hash = 89 * hash + this.product_Id;
+        hash = 89 * hash + Objects.hashCode(this.name);
+        return hash;
     }
 }
 

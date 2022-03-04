@@ -21,10 +21,13 @@ public class App {
         System.out.println("\n");
 
         Scanner keyboard = new Scanner(System.in);
+
         System.out.println("Hello and Welcome to Nichaels Pub");
-        System.out.println("Select One of you wish to view our products");
-        System.out.println("Select Three to view the country of Origin for our products");
-        System.out.println("Two is for bills but only authorised personnel get to view that right...");
+        System.out.println();
+        System.out.println("Menu Options");
+        System.out.println("1, Select One of you wish to view our products\n");
+        System.out.println("2, Select Two (is for bills but only authorised personnel get to view that right...)\n");
+        System.out.println("3, Select Three to view the country of Origin for our products\n");
 
         int option;
 
@@ -49,7 +52,13 @@ public class App {
 
                 Map<String, Product> bill = new HashMap();
                 initializeHashMap(bill);
-                System.out.println();
+
+                System.out.println("please enter your key");
+                String key = keyboard.nextLine();
+
+                Product product = bill.get(key);
+                System.out.println(key + "  Ordered::  " + product);
+
             } else if (option == 3) {
                 System.out.println("TreeMaps");
                 System.out.println("Drinks country of Origin");
@@ -91,7 +100,7 @@ public class App {
         list.add(new Patron(3, "Sammy", 54));
         list.add(new Patron(4, "Domhnall",50));
         list.add(new Patron(5, "Aine", 31));
-        list.add(new Patron(6, "CoffeeShopGirl", 29));
+        list.add(new Patron(6, "Bernie", 29));
         list.add(new Patron(7, "James", 80));
         list.add(new Patron(8, "Emma", 30));
         list.add(new Patron(9, "Jack", 22));
@@ -118,47 +127,46 @@ public class App {
     //HashMaps
     public void initializeHashMap(Map bill)
     {
-        Patron name = new Patron (1,"Claire ", 21);
+        String name =  "Grimes";
         Product product =  new Product(1, "Carlsberg", "Beer  ", 4.5, 5);
         bill.put(name,product);
 
-        name = new Patron(2, "Grimes",32);
+        String name1 = "Claire";
         product = new Product(13, "Smirnoff", "Vodka ", 45, 4.00);
-        bill.put(name,product);
+        bill.put(name1,product);
 
-        name = new Patron(3,"Sammy",54);
+        String name2 = "Sammy";
         product = new Product(5, "Smthwcks", "RedAle", 5, 5);
-        bill.put(name,product);
+        bill.put(name2,product);
 
-        name = new Patron(4, "Domhnall",50);
+        String name3 = "Domhnall";
         product =new Product(4, "Guinness", "Stout ", 5, 5.50);
-        bill.put(name,product);
+        bill.put(name3,product);
 
-        name = new Patron(5, "Aine", 31);
+        String name4 = "Aine";
         product = new Product(6, "Magners", "Cider ", 4, 4.50);
-        bill.put(name,product);
+        bill.put(name4,product);
 
-        name = new Patron(6, "CoffeeShopGirl", 29);
+        String name5 = "Bernie";
         product = new Product(11, "Macallan", "Scotch", 50, 45);
-        bill.put(name,product);
+        bill.put(name5,product);
 
-        name = new Patron(7, "James", 80);
+        String name6 = "James";
         product = new Product(8, "Powers", "Whisky", 45, 4.00);
-        bill.put(name, product);
+        bill.put(name6, product);
 
-        name = new Patron(8, "Emma", 30);
+        String name7 = "Emma";
         product = new Product(2, "Peroni", "Beer  ", 4.5, 5) ;
-        bill.put(name, product);
+        bill.put(name7, product);
 
-        name = new Patron(9, "Jack", 22);
+        String name8 = "Jack";
         product = new Product(9, "Jack D", "Bourbon", 45, 3.60);
-        bill.put(name,product);
+        bill.put(name8,product);
 
-        name = new Patron(10, "Freydis", 23);
+        String name9 = "Freydis";
         product = new Product(12, "SoComfort", "Bourbon", 4, 4.50);
-        bill.put(name,product);
+        bill.put(name9,product);
 
-        System.out.println(bill);
 
     }
 
@@ -173,7 +181,7 @@ public class App {
 
         products.put("Denmark",new Product(1, "Carlsberg", "Beer  ", 4.5, 5));
         products.put("Naples, Italy",new Product(2, "Peroni", "Beer  ", 4.5, 5));
-        products.put(" Rome, Italy",new Product(3, "Moretti", "Beer  ", 4.5, 5));
+        products.put("Rome, Italy",new Product(3, "Moretti", "Beer  ", 4.5, 5));
         products.put("St.James Gate Ireland", new Product(4, "Guinness", "Stout ", 5, 5.50));
         products.put("Kilkenny, Ireland", new Product(5, "Smthwcks", "RedAle", 5, 5));
         products.put("Ireland",new Product(6, "Magners", "Cider ", 4, 4.50));
