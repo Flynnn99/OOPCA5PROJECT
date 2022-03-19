@@ -52,14 +52,32 @@ public class Patron
     @Override
     public boolean equals(Object o)
     {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Patron patron = (Patron) o;
-        return patronId == patron.patronId && patronAge == patron.patronAge && Objects.equals(patronName, patron.patronName);
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        final Patron other = (Patron) o;
+        if (this.patronId != other.patronId)
+        {
+            return false;
+        }
+        if (!Objects.equals(this.patronName, other.patronName)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(patronId, patronName, patronAge);
+    public int hashCode()
+    {
+        int hash = 5;
+        hash = 89 * hash + this.patronId;
+        hash = 89 * hash + Objects.hashCode(this.patronName);
+        return hash;
     }
 }

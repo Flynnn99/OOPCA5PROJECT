@@ -1,0 +1,4 @@
+1: ArrayList: Adding Records to an arrayList 0(N), Searching 0(N) Access 0(1)
+3: HashMap:  Searching 0(1), Adding 0(1) Deleting 0(1)
+5: TreeMap: Searching, Adding, Deleting 0(Log(n))
+6: PriorityQ:  Access and Search 0(N) Adding and Deleting 0(1)

@@ -70,37 +70,6 @@ public class Product {
                 '}' + "\n";
     }
 
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o) {
-            return true;
-        }
-        if (o == null) {
-            return false;
-        }
-        if (getClass() != o.getClass()) {
-            return false;
-        }
-        final Product other = (Product) o;
-        if (this.product_Id != other.product_Id)
-        {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return true;
 
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 5;
-        hash = 89 * hash + this.product_Id;
-        hash = 89 * hash + Objects.hashCode(this.name);
-        return hash;
-    }
 }
 
