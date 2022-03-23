@@ -1,8 +1,9 @@
-package org.example;
+package org.example.DTO;
 
 import java.util.Objects;
 
-public class Product {
+public class Product
+{
     int product_Id;
     String name;
     String product_Type;

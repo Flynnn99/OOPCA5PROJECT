@@ -1,4 +1,6 @@
-package org.example;
+package org.example.Comparators;
+
+import org.example.DTO.Product;
 
 import java.util.Comparator;
 

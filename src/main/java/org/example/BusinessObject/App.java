@@ -1,4 +1,9 @@
-package org.example;
+package org.example.BusinessObject;
+
+import org.example.DTO.Patron;
+import org.example.Comparators.PatronAgeComparator;
+import org.example.DTO.Product;
+import org.example.Comparators.SortType;
 
 import java.io.IOException;
 import java.util.*;
