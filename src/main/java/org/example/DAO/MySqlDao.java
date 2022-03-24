@@ -1,14 +1,4 @@
 package org.example.DAO;
-/** MySqlDao -
- * - implements functionality that is common to all MySQL DAOs
- * - i.e. getConection() and freeConnection()
- * All MySQL DAOs will extend (inherit from) this class in order to
- * gain the connection functionality, thus avoiding inclusion
- * of this code in every DAO class.
- *
- */
-
-
 
 import org.example.Exceptions.DaoException;
 import java.sql.Connection;
