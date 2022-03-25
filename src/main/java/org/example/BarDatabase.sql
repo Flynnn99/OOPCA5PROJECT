@@ -26,9 +26,9 @@ INSERT INTO products(product_id, product_name,product_type,drink_percentage,pric
 (14, "GreyGoose", "Vodka ", 45, 5.50);
 
 CREATE TABLE patrons(
-                        PATRON_ID INT NOT NULL,
-                        PATRON_NAME VARCHAR(30),
-                        PATRON_AGE INT);
+PATRON_ID INT NOT NULL,
+PATRON_NAME VARCHAR(30),
+PATRON_AGE INT);
 
 INSERT INTO patrons(patron_id, patron_name, patron_age) values
 (1, "Claire", 25),
