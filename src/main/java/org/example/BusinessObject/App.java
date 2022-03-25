@@ -9,6 +9,7 @@ import org.example.DTO.Patron;
 import org.example.Exceptions.DaoException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -39,10 +40,13 @@ public class App
         ProductDaoInterface IProductDao = new MySqlProductDao();
         PatronDaoInterface IPatronDao = new MySqlPatronDao();
         final String MENU_ITEMS = "\n*** MAIN MENU OF OPTIONS ***\n"
+                +"\n** Drinks Menu **\n"
                 + "1. View All Drinks\n"
-                + "2. Search for a drink based on Type\n"
+                + "2. View Specific Drink Type\n"
+                +"\n** Patrons Menu **\n"
                 + "3. View All Patrons\n"
-                + "4. View Patron based on Name\n"
+                + "4. View Specific Patron\n"
+                + "\n** Leaving the Bar **\n"
                 + "5. Exit\n"
                 + "Enter Option [1,5]";
 
@@ -72,8 +76,18 @@ public class App
                                 System.out.println("There are no Products");
                             else
                             {
-                                for (Product product : products)
-                                    System.out.println("Product: " + product.toString());
+
+                                System.out.println("============================================================================");
+                                System.out.println("ID " + "\t\t" + "Beverage Name" + "\t" +
+                                        "Beverage Type" + "\t" + "%" + "\t\t" + "price £" + "\t\t");
+                                System.out.println("============================================================================");
+                                System.out.println();
+
+                                for (Product product : products) {
+                                    System.out.println(product.getProduct_Id() + "\t\t" + product.getName() + "  \t\t" + product.getProduct_Type() + "\t\t\t"
+                                            + product.getPercentage() + "\t\t  " + product.getPrice() + "\n");
+
+                                }
                             }
                         }catch( DaoException e )
                         {
@@ -83,7 +97,7 @@ public class App
                     case SEARCHFORADRINK:
                         try
                         {
-                            System.out.println("\nCall: findProductByNameAndType()");
+                            System.out.println("\nCall: findProductByTypeAndPrice()");
 
                             System.out.println("Enter Product Type");
                             String productType = keyboard.nextLine();
@@ -113,8 +127,16 @@ public class App
                                 System.out.println("There are no Patrons");
                             else
                             {
-                                for (Patron patron : patrons)
-                                    System.out.println("Patrons: " + patron.toString());
+                                System.out.println("============================================================================");
+                                System.out.println("ID " + "\t\t" + "Name" + "\t\t\t" +
+                                        "Age" + "\t");
+                                System.out.println("============================================================================");
+                                System.out.println();
+
+                                for (Patron patron : patrons) {
+                                    System.out.println(patron.getPatronId() + "\t\t" + patron.getPatronName() + "\t  \t\t" + patron.getPatronAge() + "\t\t\t");
+
+                                }
                             }
                         }catch( DaoException e )
                         {
@@ -160,6 +182,7 @@ public class App
             }
         } while (option != EXIT);
     }
+
 
 
 
