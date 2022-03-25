@@ -85,12 +85,12 @@ public class App
                         {
                             System.out.println("\nCall: findProductByNameAndType()");
 
-                            System.out.println("Enter Product Name");
-                            String productName = keyboard.nextLine();
                             System.out.println("Enter Product Type");
-
                             String productType = keyboard.nextLine();
-                            Product product1 = IProductDao.findProductByNameAndType(productName, productType);
+                            System.out.println("Enter Product Price");
+
+                            double price = keyboard.nextDouble();
+                            Product product1 = IProductDao.findProductByTypeAndPrice(productType, price);
 
                             if( product1 != null ) // null returned if userid and password not valid
                                 System.out.println("Product Found: " + product1);

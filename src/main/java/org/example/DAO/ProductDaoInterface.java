@@ -27,7 +27,7 @@ import java.util.List;
 public interface ProductDaoInterface
 {
     public List<Product> findAllProducts() throws DaoException;
-    public Product findProductByNameAndType(String productName, String productType) throws DaoException;
+    public Product findProductByTypeAndPrice(String productType, double price) throws DaoException;
 
 
 }

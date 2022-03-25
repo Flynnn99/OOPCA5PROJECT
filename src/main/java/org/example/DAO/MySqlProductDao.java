@@ -71,7 +71,7 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
     }
 
     @Override
-    public Product findProductByNameAndType(String product_Name, String product_Type) throws DaoException
+    public Product findProductByTypeAndPrice(String product_Type, double prices) throws DaoException
     {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -81,10 +81,10 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
         {
             connection = this.getConnection();
 
-            String query = "SELECT * FROM PRODUCTS WHERE PRODUCT_NAME = ? AND PRODUCT_TYPE = ?";
+            String query = "SELECT * FROM PRODUCTS WHERE PRODUCT_TYPE = ? AND PRICE = ?";
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, product_Name);
-            preparedStatement.setString(2, product_Type);
+            preparedStatement.setString(1, product_Type);
+            preparedStatement.setDouble(2, prices);
 
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next())
