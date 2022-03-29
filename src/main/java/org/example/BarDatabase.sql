@@ -2,6 +2,8 @@ DROP DATABASE IF EXISTS bar_database;
 
 CREATE DATABASE bar_database;
 
+USE bar_database;
+
 CREATE TABLE products
 (PRODUCT_ID INT NOT NULL,
 PRODUCT_NAME VARCHAR(25),

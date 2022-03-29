@@ -10,14 +10,25 @@ public class Product
     double percentage;
     double price;
 
+    private IdGenerator idGenerator = IdGenerator.getInstance("next-id-store.txt");  // get access to the id Generator
+
     public Product(int product_Id, String name, String product_Type, double percentage, double price) {
-        this.product_Id = product_Id;
+        this.product_Id  = product_Id;
         this.name = name;
         this.product_Type = product_Type;
         this.percentage = percentage;
         this.price = price;
 
     }
+    public Product(String name, String product_Type, double percentage, double price) {
+        this.product_Id  = idGenerator.getNextId();
+        this.name = name;
+        this.product_Type = product_Type;
+        this.percentage = percentage;
+        this.price = price;
+
+    }
+
 
     public int getProduct_Id() {
         return product_Id;
