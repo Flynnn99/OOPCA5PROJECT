@@ -143,7 +143,7 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
             Statement statement = connection.createStatement();
 
 
-            resultSet = statement.executeQuery("select * from PRODUCTS");
+            /*resultSet = statement.executeQuery("select * from PRODUCTS");
 
             if (resultSet.next())
             {
@@ -156,7 +156,7 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
                 product = new Product(productId, productName, productType, drinkPercentage, price);
 
 
-            }
+            }*/
         } catch (SQLException e)
         {
             throw new DaoException("Delete " + e.getMessage());
@@ -209,7 +209,8 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
             Statement statement = connection.createStatement();
 
 
-            resultSet = statement.executeQuery("select * from PRODUCTS");
+           /*resultSet = statement.executeQuery("select * from PRODUCTS WHERE PRODUCT_ID = ?");
+
 
             if (resultSet.next())
             {
@@ -222,7 +223,7 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
                 product = new Product(productId, productName, productType, drinkPercentage, price);
 
 
-            }
+            }*/
 
         }catch (SQLException e)
         {

@@ -9,7 +9,8 @@ CREATE TABLE products
 PRODUCT_NAME VARCHAR(25),
 PRODUCT_TYPE VARCHAR (25),
 DRINK_PERCENTAGE FLOAT,
-PRICE Float);
+PRICE Float
+PRIMARY KEY (PRODUCT_ID));
 
 INSERT INTO products(product_id, product_name,product_type,drink_percentage,price)values
 (1, "Carlsberg", "Beer  ", 4.5, 5),
@@ -30,7 +31,8 @@ INSERT INTO products(product_id, product_name,product_type,drink_percentage,pric
 CREATE TABLE patrons(
 PATRON_ID INT NOT NULL,
 PATRON_NAME VARCHAR(30),
-PATRON_AGE INT);
+PATRON_AGE INT
+PRIMARY KEY (PATRON_ID));
 
 INSERT INTO patrons(patron_id, patron_name, patron_age) values
 (1, "Claire", 25),

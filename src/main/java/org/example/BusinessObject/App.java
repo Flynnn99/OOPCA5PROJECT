@@ -391,13 +391,7 @@ public class App
             int addProductID = keyboard.nextInt();
 
 
-            Product product1 = IProductDao.addNewProduct(addProductID, addProductName, addProductType,addProductPercentage,addProductPrice);
-
-            if( product1 != null ) // null returned if userid and password not valid
-                System.out.println("Product Added");
-            else
-                System.out.println("Product Not Found");
-
+            IProductDao.addNewProduct(addProductID, addProductName, addProductType,addProductPercentage,addProductPrice);
 
         }catch( DaoException e )
         {
