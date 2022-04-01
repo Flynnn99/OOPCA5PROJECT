@@ -82,6 +82,17 @@ public class Product
                 '}' + "\n";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return product_Id == product.product_Id && Double.compare(product.percentage, percentage) == 0 && Double.compare(product.price, price) == 0 && name.equals(product.name) && product_Type.equals(product.product_Type) && idGenerator.equals(product.idGenerator);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(product_Id, name, product_Type, percentage, price, idGenerator);
+    }
 }
 
