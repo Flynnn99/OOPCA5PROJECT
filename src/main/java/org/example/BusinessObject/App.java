@@ -47,9 +47,11 @@ public class App
                 +"\n** Patrons Menu **\n"
                 + "6. View All Patrons\n"
                 + "7. View Specific Patron\n"
+                + "8. View Patron as a JSON String\n"
+                + "9. View Patrons by Age as a JSON String\n"
                 + "\n** Leaving the Bar **\n"
-                + "8. Exit\n"
-                + "Enter Option [1,8]";
+                + "10. Exit\n"
+                + "Enter Option [1,9]";
 
 
         final int VIEWALLDRINKS = 1;
@@ -59,7 +61,9 @@ public class App
         final int FILTERBYTYPE = 5;
         final int VIEWALLPATRONS = 6;
         final int SEARCHFORPATRON = 7;
-        final int EXIT = 8;
+        final int FINDALLPATRONSJSON = 8;
+        final int FINDPATRONBYAGEJSON = 9;
+        final int EXIT = 10;
 
         Scanner keyboard = new Scanner(System.in);
         int option = 0;
@@ -262,6 +266,52 @@ public class App
                             e.printStackTrace();
                         }
                         break;
+
+                    case FINDALLPATRONSJSON:
+
+                        try
+                        {
+                            System.out.println("\n FindAllPatronsJson");
+                            String patronsJsonString = IPatronDao.findAllPatronsJSON();
+
+                            if(patronsJsonString.equals("null"))
+                            {
+                                System.out.println("No Patrons");
+
+                            }
+                            else
+                            {
+                                System.out.println(patronsJsonString);
+                            }
+                        }catch(DaoException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case FINDPATRONBYAGEJSON:
+                        try
+                        {
+                            System.out.println("\n FindAllPatronsJson");
+                            System.out.println("Enter Age of Patrons");
+                            int age = keyboard.nextInt();
+
+                            String patronsJsonString = IPatronDao.findAllPatronsByAge(age);
+
+                            if(patronsJsonString.equals("null"))
+                            {
+                                System.out.println("No Patrons");
+
+                            }
+                            else
+                            {
+                                System.out.println(patronsJsonString);
+                            }
+                        }catch(DaoException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        break;
+
                     case EXIT:
                         System.out.println("Exit Menu option chosen");
                         System.out.println("Thanks for Visiting");

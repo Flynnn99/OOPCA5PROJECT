@@ -28,7 +28,8 @@ public interface PatronDaoInterface
 {
     public List<Patron> findAllPatrons() throws DaoException;
     public Patron findPatronByName(String productName) throws DaoException;
-
+    public String findAllPatronsJSON() throws DaoException;
+    public String findAllPatronsByAge(int age) throws DaoException;
 
 }
 

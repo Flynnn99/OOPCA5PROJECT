@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.gson.Gson;
 
 
     public class MySqlPatronDao extends MySqlDao implements PatronDaoInterface
@@ -124,7 +125,123 @@ import java.util.List;
             return patron;     // reference to User object, or null value
         }
 
+        @Override
+        public String findAllPatronsJSON() throws DaoException
+        {
+            Connection connection = null;
+            PreparedStatement ps = null;
+            ResultSet resultSet = null;
+            List<Patron> patronList = new ArrayList<>();
+            Gson gsonParser = new Gson();
 
+            try
+            {
+                //Get connection object using the methods in the super class (MySqlDao.java)...
+                connection = this.getConnection();
+
+                String query = "SELECT * FROM PATRONS";
+                ps = connection.prepareStatement(query);
+
+                //Using a PreparedStatement to execute SQL...
+                resultSet = ps.executeQuery();
+                while (resultSet.next())
+                {
+                    int patronId = resultSet.getInt("PATRON_ID");
+                    String patronName = resultSet.getString("PATRON_NAME");
+                    int patronAge = resultSet.getInt("PATRON_AGE");
+
+                    Patron p = new Patron(patronId, patronName, patronAge);
+                    patronList.add(p);
+                }
+
+
+            } catch (SQLException e)
+            {
+                throw new DaoException("findAllPatronsResultSet() " + e.getMessage());
+            } finally
+            {
+                try
+                {
+                    if (resultSet != null)
+                    {
+                        resultSet.close();
+                    }
+                    if (ps != null)
+                    {
+                        ps.close();
+                    }
+                    if (connection != null)
+                    {
+                        freeConnection(connection);
+                    }
+                } catch (SQLException e)
+                {
+                    throw new DaoException("findAllProducts() " + e.getMessage());
+                }
+            }
+            String patrons = gsonParser.toJson(patronList);
+            return patrons;
+        }
+
+        @Override
+        public String findAllPatronsByAge(int age) throws DaoException
+        {
+            Connection connection = null;
+            PreparedStatement ps = null;
+            ResultSet resultSet = null;
+            List<Patron> patronList = new ArrayList<>();
+            Gson gsonParser = new Gson();
+
+            try
+            {
+                //Get connection object using the methods in the super class (MySqlDao.java)...
+                connection = this.getConnection();
+
+                String query = "SELECT * FROM PATRONS WHERE PATRON_AGE = ? ";
+                ps = connection.prepareStatement(query);
+                ps.setInt(1, age);
+
+                //Using a PreparedStatement to execute SQL...
+                resultSet = ps.executeQuery();
+                while (resultSet.next())
+                {
+                    int patronId = resultSet.getInt("PATRON_ID");
+                    String patronName = resultSet.getString("PATRON_NAME");
+                    int patronAge = resultSet.getInt("PATRON_AGE");
+
+                    Patron p = new Patron(patronId, patronName, patronAge);
+                    patronList.add(p);
+                }
+
+
+            } catch (SQLException e)
+            {
+                throw new DaoException("findAllPatronsResultSet() " + e.getMessage());
+            } finally
+            {
+                try
+                {
+                    if (resultSet != null)
+                    {
+                        resultSet.close();
+                    }
+                    if (ps != null)
+                    {
+                        ps.close();
+                    }
+                    if (connection != null)
+                    {
+                        freeConnection(connection);
+                    }
+                } catch (SQLException e)
+                {
+                    throw new DaoException("findAllProducts() " + e.getMessage());
+                }
+            }
+
+            String patrons = gsonParser.toJson(patronList);
+            return patrons;
+        }
     }
 
 
