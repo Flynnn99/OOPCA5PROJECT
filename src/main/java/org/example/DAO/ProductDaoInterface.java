@@ -33,6 +33,8 @@ public interface ProductDaoInterface
     public List<Product>findProductByType(String productType) throws DaoException;
     public Product displayByID(int id) throws DaoException;
     public String findAllProductsJSON() throws DaoException;
+    public String findProductIdByJSON(int id) throws DaoException;
+
 
 }
 

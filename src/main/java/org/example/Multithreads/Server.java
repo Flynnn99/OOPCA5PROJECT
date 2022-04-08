@@ -113,7 +113,7 @@ public class Server
 
                         String[] tokens = message.split(" ");
                         int num = Integer.parseInt(tokens[1]);
-                        Product product = IProductDao.displayByID(num);
+                        String product = IProductDao.findProductIdByJSON(num);
                         socketWriter.println(product);
                     }
                     else if (message.startsWith("findAllProducts"))

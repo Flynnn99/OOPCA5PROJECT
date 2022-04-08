@@ -46,7 +46,6 @@ public class Client
             while(contLooping ==true)
             {
 
-
                 if (command.startsWith("Time"))   //we expect the server to return a time
                 {
                     String timeString = socketReader.nextLine();
@@ -56,11 +55,13 @@ public class Client
                 {
                     String input = socketReader.nextLine();
                     System.out.println("Client message: Response from server: \"" + input + "\"");
+
                 }
                 else if(command.startsWith("findAllProducts"))
                 {
                     String input = socketReader.nextLine();
                     System.out.println("Client message: Response from server: \"" + input + "\"");
+
                 }
                 else if(command.startsWith("addNewProduct"))
                 {
