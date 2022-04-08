@@ -10,7 +10,6 @@ public class Product
     double percentage;
     double price;
 
-    private IdGenerator idGenerator = IdGenerator.getInstance("next-id-store.txt");  // get access to the id Generator
 
     public Product(int product_Id, String name, String product_Type, double percentage, double price) {
         this.product_Id  = product_Id;
@@ -20,14 +19,7 @@ public class Product
         this.price = price;
 
     }
-    public Product(String name, String product_Type, double percentage, double price) {
-        this.product_Id  = idGenerator.getNextId();
-        this.name = name;
-        this.product_Type = product_Type;
-        this.percentage = percentage;
-        this.price = price;
 
-    }
 
 
     public int getProduct_Id() {
@@ -87,12 +79,12 @@ public class Product
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return product_Id == product.product_Id && Double.compare(product.percentage, percentage) == 0 && Double.compare(product.price, price) == 0 && name.equals(product.name) && product_Type.equals(product.product_Type) && idGenerator.equals(product.idGenerator);
+        return product_Id == product.product_Id && Double.compare(product.percentage, percentage) == 0 && Double.compare(product.price, price) == 0 && name.equals(product.name) && product_Type.equals(product.product_Type) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(product_Id, name, product_Type, percentage, price, idGenerator);
+        return Objects.hash(product_Id, name, product_Type, percentage, price);
     }
 }
 

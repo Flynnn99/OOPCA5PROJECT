@@ -31,6 +31,8 @@ public interface ProductDaoInterface
     public Product deleteBy(int id) throws DaoException;
     public Product addNewProduct(int product_id, String product_name, String product_type, double percentage, double price ) throws DaoException;
     public List<Product>findProductByType(String productType) throws DaoException;
+    public Product displayByID(int id) throws DaoException;
+    public String findAllProductsJSON() throws DaoException;
 
 }
 

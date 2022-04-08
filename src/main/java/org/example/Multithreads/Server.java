@@ -1,0 +1,156 @@
+package org.example.Multithreads;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.time.LocalTime;
+import java.util.List;
+
+import org.example.DAO.MySqlProductDao;
+
+import org.example.DAO.ProductDaoInterface;
+import org.example.DTO.Product;
+import org.example.Exceptions.DaoException;
+
+
+public class Server
+{
+    public static void main(String[] args)
+    {
+        Server server = new Server();
+        ProductDaoInterface IProductDao = new MySqlProductDao();
+
+        server.start();
+    }
+
+    public void start()
+    {
+        try
+        {
+            ProductDaoInterface IProductDao = new MySqlProductDao();
+            ServerSocket ss = new ServerSocket(8080);  // set up ServerSocket to listen for connections on port 8080
+
+            System.out.println("Server: Server started. Listening for connections on port 8080...");
+
+            int clientNumber = 0;  // a number for clients that the server allocates as clients connect
+
+            while (true)    // loop continuously to accept new client connections
+            {
+                Socket socket = ss.accept();    // listen (and wait) for a connection, accept the connection,
+                // and open a new socket to communicate with the client
+                clientNumber++;
+
+                System.out.println("Server: Client " + clientNumber + " has connected.");
+
+                System.out.println("Server: Port# of remote client: " + socket.getPort());
+                System.out.println("Server: Port# of this server: " + socket.getLocalPort());
+
+                Thread t = new Thread(new ClientHandler(socket, clientNumber, IProductDao)); // create a new ClientHandler for the client,
+                t.start();                                                  // and run it in its own thread
+
+                System.out.println("Server: ClientHandler started in thread for client " + clientNumber + ". ");
+                System.out.println("Server: Listening for further connections...");
+            }
+        } catch (IOException e)
+        {
+            System.out.println("Server: IOException: " + e);
+        }
+        System.out.println("Server: Server exiting, Goodbye!");
+    }
+
+    public class ClientHandler implements Runnable   // each ClientHandler communicates with one Client
+    {
+        BufferedReader socketReader;
+        PrintWriter socketWriter;
+        Socket socket;
+        ProductDaoInterface daoProducts;
+        int clientNumber;
+
+        public ClientHandler(Socket clientSocket, int clientNumber, ProductDaoInterface daoProducts)
+        {
+            try
+            {
+                InputStreamReader isReader = new InputStreamReader(clientSocket.getInputStream());
+                this.socketReader = new BufferedReader(isReader);
+
+                OutputStream os = clientSocket.getOutputStream();
+                this.socketWriter = new PrintWriter(os, true); // true => auto flush socket buffer
+
+                this.clientNumber = clientNumber;  // ID number that we are assigning to this client
+
+                this.socket = clientSocket;  // store socket ref for closing
+
+                this.daoProducts = daoProducts;
+
+            } catch (IOException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+
+        @Override
+        public void run()
+        {
+            String message;
+            try
+            {
+                ProductDaoInterface IProductDao = new MySqlProductDao();
+                while ((message = socketReader.readLine()) != null)
+                {
+                    System.out.println("Server: (ClientHandler): Read command from client " + clientNumber + ": " + message);
+
+                    if (message.startsWith("Time"))
+                    {
+                        LocalTime time =  LocalTime.now();
+                        socketWriter.println(time);  // sends current time to client
+                    }
+                    else if(message.startsWith("displayById"))
+                    {
+
+                        String[] tokens = message.split(" ");
+                        int num = Integer.parseInt(tokens[1]);
+                        Product product = IProductDao.displayByID(num);
+                        socketWriter.println(product);
+                    }
+                    else if (message.startsWith("findAllProducts"))
+                    {
+
+                        String productsJsonString = IProductDao.findAllProductsJSON();
+                        socketWriter.println(productsJsonString);
+
+
+                         // send message to client
+                    }
+                    else if(message.startsWith("addNewProduct"))
+                    {
+
+                    }
+                    else if(message.startsWith("deleteBy"))
+                    {
+                        String[] tokens = message.split(" ");
+                        int num = Integer.parseInt(tokens[1]);
+                        Product product = IProductDao.deleteBy(num);
+                        socketWriter.println("deleted");
+
+                    }
+                    else
+                    {
+                        socketWriter.println("I'm sorry I don't understand :(");
+                    }
+                }
+
+                socket.close();
+
+            } catch (IOException | DaoException ex)
+            {
+                ex.printStackTrace();
+            }
+            System.out.println("Server: (ClientHandler): Handler for Client " + clientNumber + " is terminating .....");
+        }
+    }
+
+}
