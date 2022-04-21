@@ -10,19 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
-{
+public class MySqlProductDao extends MySqlDao implements ProductDaoInterface {
 
     @Override
-    public List<Product> findAllProducts() throws DaoException
-    {
+    public List<Product> findAllProducts() throws DaoException {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
         List<Product> productList = new ArrayList<>();
 
-        try
-        {
+        try {
             //Get connection object using the methods in the super class (MySqlDao.java)...
             connection = this.getConnection();
 
@@ -31,8 +28,7 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
 
             //Using a PreparedStatement to execute SQL...
             resultSet = ps.executeQuery();
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 int productId = resultSet.getInt("PRODUCT_ID");
                 String productName = resultSet.getString("PRODUCT_NAME");
                 String productType = resultSet.getString("PRODUCT_TYPE");
@@ -43,27 +39,20 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
             }
 
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             throw new DaoException("findAllProductsResultSet() " + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (resultSet != null)
-                {
+        } finally {
+            try {
+                if (resultSet != null) {
                     resultSet.close();
                 }
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
                 }
-                if (connection != null)
-                {
+                if (connection != null) {
                     freeConnection(connection);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 throw new DaoException("findAllProducts() " + e.getMessage());
             }
         }
@@ -71,14 +60,12 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
     }
 
     @Override
-    public Product findProductByTypeAndPrice(String product_Type, double prices) throws DaoException
-    {
+    public Product findProductByTypeAndPrice(String product_Type, double prices) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Product product = null;
-        try
-        {
+        try {
             connection = this.getConnection();
 
             String query = "SELECT * FROM PRODUCTS WHERE PRODUCT_TYPE = ? AND PRICE = ?";
@@ -87,8 +74,7 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
             preparedStatement.setDouble(2, prices);
 
             resultSet = preparedStatement.executeQuery();
-            if (resultSet.next())
-            {
+            if (resultSet.next()) {
                 int productId = resultSet.getInt("PRODUCT_ID");
                 String productName = resultSet.getString("PRODUCT_NAME");
                 String productType = resultSet.getString("PRODUCT_TYPE");
@@ -98,27 +84,20 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
 
                 product = new Product(productId, productName, productType, drinkPercentage, price);
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             throw new DaoException("findUserByNameAndType() " + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (resultSet != null)
-                {
+        } finally {
+            try {
+                if (resultSet != null) {
                     resultSet.close();
                 }
-                if (preparedStatement != null)
-                {
+                if (preparedStatement != null) {
                     preparedStatement.close();
                 }
-                if (connection != null)
-                {
+                if (connection != null) {
                     freeConnection(connection);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 throw new DaoException("findUserByNameAndType() " + e.getMessage());
             }
         }
@@ -126,14 +105,12 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
     }
 
     @Override
-    public Product displayByID(int id) throws DaoException
-    {
+    public Product displayByID(int id) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Product product = null;
-        try
-        {
+        try {
             connection = this.getConnection();
 
             String query = "SELECT * FROM PRODUCTS WHERE PRODUCT_ID = ?";
@@ -142,8 +119,7 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
 
 
             resultSet = preparedStatement.executeQuery();
-            if (resultSet.next())
-            {
+            if (resultSet.next()) {
                 int productId = resultSet.getInt("PRODUCT_ID");
                 String productName = resultSet.getString("PRODUCT_NAME");
                 String productType = resultSet.getString("PRODUCT_TYPE");
@@ -153,27 +129,20 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
 
                 product = new Product(productId, productName, productType, drinkPercentage, price);
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             throw new DaoException("findUserByNameAndType() " + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (resultSet != null)
-                {
+        } finally {
+            try {
+                if (resultSet != null) {
                     resultSet.close();
                 }
-                if (preparedStatement != null)
-                {
+                if (preparedStatement != null) {
                     preparedStatement.close();
                 }
-                if (connection != null)
-                {
+                if (connection != null) {
                     freeConnection(connection);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 throw new DaoException("findUserByNameAndType() " + e.getMessage());
             }
         }
@@ -182,14 +151,12 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
 
 
     @Override
-    public Product deleteBy(int id) throws DaoException
-    {
+    public Product deleteBy(int id) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Product product = null;
-        try
-        {
+        try {
             connection = this.getConnection();
 
             String query = "DELETE FROM PRODUCTS WHERE PRODUCT_ID = ? ";
@@ -215,27 +182,20 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
 
 
             }*/
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             throw new DaoException("Delete " + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (resultSet != null)
-                {
+        } finally {
+            try {
+                if (resultSet != null) {
                     resultSet.close();
                 }
-                if (preparedStatement != null)
-                {
+                if (preparedStatement != null) {
                     preparedStatement.close();
                 }
-                if (connection != null)
-                {
+                if (connection != null) {
                     freeConnection(connection);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 throw new DaoException("deleteBy() " + e.getMessage());
             }
         }
@@ -243,14 +203,12 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
     }
 
     @Override
-    public Product addNewProduct(int product_id, String product_name, String product_type, double product_percentage, double product_price ) throws DaoException
-    {
+    public Product addNewProduct(int product_id, String product_name, String product_type, double product_percentage, double product_price) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Product product = null;
-        try
-        {
+        try {
             connection = this.getConnection();
 
             String query = "INSERT INTO PRODUCTS VALUES (?,?,?,?,?) ";
@@ -283,27 +241,20 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
 
             }*/
 
-        }catch (SQLException e)
-        {
+        } catch (SQLException e) {
             throw new DaoException("Add " + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (resultSet != null)
-                {
+        } finally {
+            try {
+                if (resultSet != null) {
                     resultSet.close();
                 }
-                if (preparedStatement != null)
-                {
+                if (preparedStatement != null) {
                     preparedStatement.close();
                 }
-                if (connection != null)
-                {
+                if (connection != null) {
                     freeConnection(connection);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 throw new DaoException("AddNew() " + e.getMessage());
             }
         }
@@ -312,15 +263,13 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
     }
 
     @Override
-    public List<Product>findProductByType(String product_type) throws DaoException
-    {
+    public List<Product> findProductByType(String product_type) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         List<Product> productList = new ArrayList<>();
 
-        try
-        {
+        try {
             //Get connection object using the methods in the super class (MySqlDao.java)...
             connection = this.getConnection();
 
@@ -330,8 +279,7 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
 
             //Using a PreparedStatement to execute SQL...
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 int productId = resultSet.getInt("PRODUCT_ID");
                 String productName = resultSet.getString("PRODUCT_NAME");
                 String productType = resultSet.getString("PRODUCT_TYPE");
@@ -342,27 +290,20 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
             }
 
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             throw new DaoException("findAllProductsResultSet() " + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (resultSet != null)
-                {
+        } finally {
+            try {
+                if (resultSet != null) {
                     resultSet.close();
                 }
-                if (preparedStatement != null)
-                {
+                if (preparedStatement != null) {
                     preparedStatement.close();
                 }
-                if (connection != null)
-                {
+                if (connection != null) {
                     freeConnection(connection);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 throw new DaoException("findAllProducts() " + e.getMessage());
             }
         }
@@ -370,16 +311,14 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
     }
 
     @Override
-    public String findAllProductsJSON() throws DaoException
-    {
+    public String findAllProductsJSON() throws DaoException {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
         List<Product> productList = new ArrayList<>();
         Gson gsonParser = new Gson();
 
-        try
-        {
+        try {
             //Get connection object using the methods in the super class (MySqlDao.java)...
             connection = this.getConnection();
 
@@ -388,8 +327,7 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
 
             //Using a PreparedStatement to execute SQL...
             resultSet = ps.executeQuery();
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 int productId = resultSet.getInt("PRODUCT_ID");
                 String productName = resultSet.getString("PRODUCT_NAME");
                 String productType = resultSet.getString("PRODUCT_TYPE");
@@ -400,27 +338,20 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
             }
 
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             throw new DaoException("findAllProductsResultSet() " + e.getMessage());
-        } finally
-        {
-            try
-            {
-                if (resultSet != null)
-                {
+        } finally {
+            try {
+                if (resultSet != null) {
                     resultSet.close();
                 }
-                if (ps != null)
-                {
+                if (ps != null) {
                     ps.close();
                 }
-                if (connection != null)
-                {
+                if (connection != null) {
                     freeConnection(connection);
                 }
-            } catch (SQLException e)
-            {
+            } catch (SQLException e) {
                 throw new DaoException("findAllProducts() " + e.getMessage());
             }
         }
@@ -430,67 +361,58 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface
     }
 
     @Override
-    public String findProductIdByJSON(int id) throws DaoException
-    {
+    public String findProductIdByJSON(int id) throws DaoException {
 
-            Connection connection = null;
-            PreparedStatement ps = null;
-            ResultSet resultSet = null;
-            Product product = null;
-            Gson gsonParser = new Gson();
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet resultSet = null;
+        Product product = null;
+        Gson gsonParser = new Gson();
 
-            try
-            {
-                //Get connection object using the methods in the super class (MySqlDao.java)...
-                connection = this.getConnection();
+        try {
+            //Get connection object using the methods in the super class (MySqlDao.java)...
+            connection = this.getConnection();
 
-                String query = "SELECT * FROM PRODUCTS WHERE PRODUCT_ID = ? ";
-                ps = connection.prepareStatement(query);
-                ps.setInt(1, id);
+            String query = "SELECT * FROM PRODUCTS WHERE PRODUCT_ID = ? ";
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
 
-                //Using a PreparedStatement to execute SQL...
-                resultSet = ps.executeQuery();
-                while (resultSet.next())
-                {
+            //Using a PreparedStatement to execute SQL...
+            resultSet = ps.executeQuery();
+            while (resultSet.next()) {
 
-                    int productId = resultSet.getInt("PRODUCT_ID");
-                    String productName = resultSet.getString("PRODUCT_NAME");
-                    String productType = resultSet.getString("PRODUCT_TYPE");
-                    double drinkPercentage = resultSet.getDouble("DRINK_PERCENTAGE");
-                    double price = resultSet.getDouble("PRICE");
+                int productId = resultSet.getInt("PRODUCT_ID");
+                String productName = resultSet.getString("PRODUCT_NAME");
+                String productType = resultSet.getString("PRODUCT_TYPE");
+                double drinkPercentage = resultSet.getDouble("DRINK_PERCENTAGE");
+                double price = resultSet.getDouble("PRICE");
 
 
-                   product = new Product(productId, productName, productType, drinkPercentage, price);
+                product = new Product(productId, productName, productType, drinkPercentage, price);
 
-                }
-
-
-            } catch (SQLException e)
-            {
-                throw new DaoException("findAllPatronsResultSet() " + e.getMessage());
-            } finally
-            {
-                try
-                {
-                    if (resultSet != null)
-                    {
-                        resultSet.close();
-                    }
-                    if (ps != null)
-                    {
-                        ps.close();
-                    }
-                    if (connection != null)
-                    {
-                        freeConnection(connection);
-                    }
-                } catch (SQLException e)
-                {
-                    throw new DaoException("findAllProducts() " + e.getMessage());
-                }
             }
 
-            String products = gsonParser.toJson(product);
-            return products;
+
+        } catch (SQLException e) {
+            throw new DaoException("findAllPatronsResultSet() " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (connection != null) {
+                    freeConnection(connection);
+                }
+            } catch (SQLException e) {
+                throw new DaoException("findAllProducts() " + e.getMessage());
+            }
         }
+
+        String products = gsonParser.toJson(product);
+        return products;
     }
+
+}

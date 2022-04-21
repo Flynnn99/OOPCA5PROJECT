@@ -1,5 +1,6 @@
 package org.example.Multithreads;
 
+import com.google.gson.Gson;
 import org.example.DAO.MySqlProductDao;
 import org.example.DAO.ProductDaoInterface;
 import org.example.DTO.Product;
@@ -23,6 +24,7 @@ public class Client
     public void start()
     {
         Scanner in = new Scanner(System.in);
+        Gson gson = new Gson();
         try {
             Socket socket = new Socket("localhost", 8080);  // connect to server socket
             System.out.println("Client: Port# of this client : " + socket.getLocalPort());
@@ -81,7 +83,7 @@ public class Client
                     int productId = socketReader.nextInt();
 
                     Product product = IProductDao.addNewProduct(productId, productName, productType, productPercentage, productPrice);
-
+                    String productJson = gson.toJson(product);
 
 
                 }

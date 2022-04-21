@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.google.gson.Gson;
 import org.example.DAO.MySqlProductDao;
 
 import org.example.DAO.ProductDaoInterface;
@@ -32,6 +33,7 @@ public class Server
         try
         {
             ProductDaoInterface IProductDao = new MySqlProductDao();
+            Gson gson = new Gson();
             ServerSocket ss = new ServerSocket(8080);  // set up ServerSocket to listen for connections on port 8080
 
             System.out.println("Server: Server started. Listening for connections on port 8080...");
@@ -128,6 +130,7 @@ public class Server
                     else if(message.startsWith("addNewProduct"))
                     {
 
+                        String[] tokens =  message.split(" ");
                     }
                     else if(message.startsWith("deleteBy"))
                     {
