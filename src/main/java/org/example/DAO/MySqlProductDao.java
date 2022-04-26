@@ -263,6 +263,51 @@ public class MySqlProductDao extends MySqlDao implements ProductDaoInterface {
     }
 
     @Override
+    public Product addNewProduct(String product_name, String product_type, double product_percentage, double product_price) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Product product = null;
+        try {
+            connection = this.getConnection();
+
+            String query = "INSERT INTO PRODUCTS VALUES (null, ?,?,?,?) ";
+            preparedStatement = connection.prepareStatement(query);
+
+
+            preparedStatement.setString(1, product_name);
+            preparedStatement.setString(2, product_type);
+            preparedStatement.setDouble(3, product_percentage);
+            preparedStatement.setDouble(4, product_price);
+
+            preparedStatement.executeUpdate();
+
+            Statement statement = connection.createStatement();
+
+
+
+
+        } catch (SQLException e) {
+            throw new DaoException("Add " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    freeConnection(connection);
+                }
+            } catch (SQLException e) {
+                throw new DaoException("AddNew() " + e.getMessage());
+            }
+        }
+
+        return product;
+    }
+    @Override
     public List<Product> findProductByType(String product_type) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

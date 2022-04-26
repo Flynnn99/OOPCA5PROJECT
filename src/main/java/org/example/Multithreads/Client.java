@@ -65,25 +65,43 @@ public class Client
                     System.out.println("Client message: Response from server: \"" + input + "\"");
 
                 }
-                else if(command.startsWith("addNewProduct"))
+                else if(command.startsWith("add"))
                 {
                     System.out.println("Enter Product Name");
-                    String productName = socketReader.nextLine();
+                    String productName = in.nextLine();
 
                     System.out.println("Enter Product Type");
-                    String productType = socketReader.nextLine();
+                    String productType = in.nextLine();
 
                     System.out.println("Enter Product Percentage");
-                    Double productPercentage = socketReader.nextDouble();
+                    Double productPercentage = in.nextDouble();
 
                     System.out.println("Enter Product Price ");
-                    Double productPrice = socketReader.nextDouble();
+                    Double productPrice = in.nextDouble();
 
-                    System.out.println("Enter the ID");
-                    int productId = socketReader.nextInt();
 
-                    Product product = IProductDao.addNewProduct(productId, productName, productType, productPercentage, productPrice);
+                    Product product = new Product(productName, productType, productPercentage, productPrice);
                     String productJson = gson.toJson(product);
+                    System.out.println(product);
+                    command = command + " " + productJson;
+
+
+                    socketWriter.println(command);
+
+                    String input = socketReader.nextLine();
+
+                    if(!input.equals("null"))
+                    {
+                        System.out.println("added");
+                    }
+                    else
+                    {
+                        System.out.println("not added");
+                    }
+
+                    socketWriter.println(command);
+                    input= socketReader.nextLine();
+                    System.out.println("Client message: Response from server: \"" + input + "\"");
 
 
                 }
@@ -109,7 +127,7 @@ public class Client
             socketReader.close();
             socket.close();
 
-        } catch (IOException | DaoException e)
+        } catch (IOException e)
         {
             System.out.println("Client message: IOException: "+e);
         }
@@ -120,7 +138,7 @@ public class Client
         System.out.println("\n*** MAIN MENU OF OPTIONS ***\n"
                 + "1. Display Entity By ID -- displayById\n"
                 + "2. Display All Entities -- findAllProducts\n"
-                + "3. Add An Entities --- addNewProduct\n"
+                + "3. Add An Entities --- add\n"
                 + "4. Delete An Entity By ID --- deleteBy\n"
                 + "5. Exit\n");
 

@@ -33,7 +33,7 @@ public class Server
         try
         {
             ProductDaoInterface IProductDao = new MySqlProductDao();
-            Gson gson = new Gson();
+
             ServerSocket ss = new ServerSocket(8080);  // set up ServerSocket to listen for connections on port 8080
 
             System.out.println("Server: Server started. Listening for connections on port 8080...");
@@ -101,6 +101,7 @@ public class Server
             try
             {
                 ProductDaoInterface IProductDao = new MySqlProductDao();
+                Gson gson = new Gson();
                 while ((message = socketReader.readLine()) != null)
                 {
                     System.out.println("Server: (ClientHandler): Read command from client " + clientNumber + ": " + message);
@@ -127,10 +128,16 @@ public class Server
 
                          // send message to client
                     }
-                    else if(message.startsWith("addNewProduct"))
+                    else if(message.startsWith("add"))
                     {
+                        message = socketReader.readLine();
+                        String tokens = message.substring(4);
+                        System.out.println(message);
 
-                        String[] tokens =  message.split(" ");
+                        Product product = gson.fromJson(tokens, Product.class);
+                        System.out.println("product" + product);
+                        IProductDao.addNewProduct(product.getName(), product.getProduct_Type(), product.getPercentage(), product.getPrice());
+
                     }
                     else if(message.startsWith("deleteBy"))
                     {

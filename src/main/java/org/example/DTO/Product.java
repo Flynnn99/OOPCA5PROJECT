@@ -20,6 +20,15 @@ public class Product
 
     }
 
+    public Product(String name, String product_Type, double percentage, double price) {
+
+        this.name = name;
+        this.product_Type = product_Type;
+        this.percentage = percentage;
+        this.price = price;
+
+    }
+
 
 
     public int getProduct_Id() {
@@ -66,7 +75,6 @@ public class Product
     public String toString()
     {
         return "Product{" +
-                " product_Id= " + product_Id +
                 " name= '" + name + '\'' +
                 " product_Type= '" + product_Type + '\'' +
                 " percentage= " + percentage +
@@ -75,7 +83,8 @@ public class Product
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
