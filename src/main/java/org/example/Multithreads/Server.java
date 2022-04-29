@@ -135,9 +135,8 @@ public class Server
                         System.out.println(message);
 
                         Product product = gson.fromJson(tokens, Product.class);
-                        System.out.println("product" + product);
                         IProductDao.addNewProduct(product.getName(), product.getProduct_Type(), product.getPercentage(), product.getPrice());
-
+                        socketWriter.println("added");
                     }
                     else if(message.startsWith("deleteBy"))
                     {

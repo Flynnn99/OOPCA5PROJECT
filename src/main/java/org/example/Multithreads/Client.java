@@ -89,19 +89,10 @@ public class Client
 
                     socketWriter.println(command);
 
-                    String input = socketReader.nextLine();
 
-                    if(!input.equals("null"))
-                    {
-                        System.out.println("added");
-                    }
-                    else
-                    {
-                        System.out.println("not added");
-                    }
 
                     socketWriter.println(command);
-                    input= socketReader.nextLine();
+                    String input= socketReader.nextLine();
                     System.out.println("Client message: Response from server: \"" + input + "\"");
 
 
