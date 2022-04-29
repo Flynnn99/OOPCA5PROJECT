@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.SQLOutput;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Client
@@ -110,6 +111,18 @@ public class Client
                     String input = socketReader.nextLine();
                     System.out.println("Client message: Response from server: \"" + input + "\"");
                 }
+                else if(command.startsWith("summary"))
+                {
+                    //int amount = socketReader.nextInt();
+                    double price = socketReader.nextDouble();
+
+
+                    //System.out.println("Amount of Drinks for Sale: " + amount);
+                    System.out.printf("Average Price of Drinks  £%6.2f ", price );
+                    System.out.println();
+
+
+                }
 
                 else                            // the user has entered the Echo command or an invalid command
                 {
@@ -127,7 +140,7 @@ public class Client
             socketReader.close();
             socket.close();
 
-        } catch (IOException e)
+        } catch (IOException |InputMismatchException e)
         {
             System.out.println("Client message: IOException: "+e);
         }
@@ -140,7 +153,8 @@ public class Client
                 + "2. Display All Entities -- findAllProducts\n"
                 + "3. Add An Entities --- add\n"
                 + "4. Delete An Entity By ID --- deleteBy\n"
-                + "5. Exit\n");
+                + "5. Summary --- summary\n"
+                + "6. Exit\n");
 
         System.out.println("Please enter a command:  (\"Time\" to get time\n>");
     }

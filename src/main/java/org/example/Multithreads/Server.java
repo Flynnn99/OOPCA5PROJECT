@@ -147,6 +147,31 @@ public class Server
                         socketWriter.println("deleted");
 
                     }
+                    else if(message.startsWith("summary"))
+                    {
+
+                        double totalPrice =0;
+                       // int amountOfDrinks = 0;
+                        double avgPrice = 0;
+                        int size = IProductDao.findAllProducts().size();
+
+                        for(int j = 0; j<size; j++)
+                        {
+                            totalPrice += IProductDao.findAllProducts().get(j).getPrice();
+                            //amountOfDrinks ++;
+                        }
+
+                        avgPrice = totalPrice/size;
+
+                        //socketWriter.print(size);
+                        socketWriter.println(avgPrice);
+
+
+
+
+
+
+                    }
                     else
                     {
                         socketWriter.println("I'm sorry I don't understand :(");
