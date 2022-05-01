@@ -88,10 +88,6 @@ public class Client
 
 
                     socketWriter.println(command);
-
-
-
-                    socketWriter.println(command);
                     String input= socketReader.nextLine();
                     System.out.println("Client message: Response from server: \"" + input + "\"");
 
